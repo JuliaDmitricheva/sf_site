@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<!-- saved from url=(0123)https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod04/20535A_LAB_AK_04.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <title>
+            20535: Architecting Microsoft Azure Solutions - Module 4: Creating Managed Server Applications in Azure
+        </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./20535_ Architecting Microsoft Azure Solutions - Module 4_ Creating Managed Server Applications in Azure_files/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="./20535_ Architecting Microsoft Azure Solutions - Module 4_ Creating Managed Server Applications in Azure_files/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <style>
+            dl, ol, p, ul {margin-top: 1rem;}body {position: relative;}body, html {font-family: segoe-ui_normal, "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}p {margin-bottom: 0;}a:active, a:hover, a:visited {color: #0078d7;}a {word-wrap: break-word;}main ol ol, main ul ul {margin: 0 0 0 20px;}main ul ul > li {list-style-type: circle;}main ul ul ul > li {list-style-type: square;}main ol ol > li {list-style-type: lower-alpha;}main ol ol ol > li {list-style-type: lower-roman;}html {-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing: border-box;height: 100%;}body {background: #fff;color: #222;font-size: 100%;line-height: 160%;min-height: 100%;height: auto !important;}a {color: #0050C5;cursor: pointer;text-decoration: none;}a:hover {text-decoration: underline;}small {font-size: 11px;}dl, ol, ul {margin-bottom: 1rem;}blockquote {border-color: #bff1ff;color: inherit;font-size: smaller;padding: 20px;margin-top: 15px;border-radius: 6px;}blockquote:before {content: "\0024D8 Note";color: #0094bf;font-size: larger;font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}article img {max-width: 100%;}.bg-black {background-color: #000;}.text-black {color: #000;}.bg-azure {background-color: #0078d7;}.bg-note, blockquote {background-color: #d9f6ff;}.text-azure {color: #0078d7;}h5, h6 {letter-spacing: 1px;}h4, h5, h6 {margin-top: 36px;margin-bottom: 6px;}h1, h2 {margin-bottom: 0;}h1, h2 {font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;font-size: 2.5rem;margin-top: 10px;}h3, h4, h5, h6 {font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}h1, h2, h3, h4, h5, h6 {font-style: normal;font-weight: 300;line-height: 1.3;text-rendering: optimizeLegibility;word-wrap: break-word;}h2 {font-size: 1.75rem;margin-top: 32px;}h3 {font-size: 1.188rem;margin-top: 30px;margin-bottom: 18px;}h4 {font-size: 1rem;}h5 {font-size: 0.9rem;}h6 {font-size: 0.8rem;}.title {font-style: normal;font-weight: 300;line-height: 1.3;text-rendering: optimizeLegibility;word-wrap: break-word;margin-bottom: 10px;font-size: 1.75rem;margin-top: 32px;font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}nav.toc {margin-top: 24px !important;overflow-y: auto !important;flex-grow: 1 !important;}nav.toc a.nav-link, nav.toc li.nav-item, nav.toc ul.nav {outline: #000 solid 0 !important;-moz-box-shadow: inset 0 0 0 0 #000 !important;-webkit-box-shadow: inset 0 0 00 #000 !important;box-shadow: inset 0 0 0 0 #000 !important;}.toc a:focus, .toc li:focus, .toc ul:focus {-moz-box-shadow: inset 0 0 0 2px #0050C5;-webkit-box-shadow: inset 0 0 0 2px #0050C5;box-shadow: inset 0 0 0 2px #0050C5;}nav.toc ul.nav {margin-bottom: 0;padding-left: 10px;}nav.toc > ul.nav {display: block;margin-left: 0;padding-left: 0;}nav.toc > ul.nav a.nav-link {padding: 0.75rem 0.25rem;}nav.toc > ul.nav a.nav-link, nav.toc > ul.nav span {display: block;font-size: .875rem;line-height: 1.3;margin-left: .5rem;margin-right: 1rem;word-wrap: break-word;color: #222;}nav.toc > ul.nav a.nav-link {color: #222;}nav.toc > ul.nav a.nav-link:hover {color: #0078d7;}nav.toc > ul.nav a.nav-link.active {background-color: #0050c5;color: #FFF;}main th, pre {text-align: left;}main table caption, main td, main th {border-style: solid;border-color: #e3e3e3;}main th {font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}main td, main th {word-wrap: break-word;}main table {border-collapse: collapse;border-spacing: 0;table-layout: auto;width: 100%;font-size: 0.875rem;}main table caption {font-size: .8em;font-weight: 600;letter-spacing: 2px;text-transform: uppercase;padding: 1.2em;border-width: 0 0 1px;text-align: right;}main td, main th {display: table-cell;padding: 12px 16px;line-height: 1.5;vertical-align: top;border-width: 1px 0 0;}main th {font-size: .875rem;font-weight: 400;vertical-align: bottom;border-width: 0 0 1px;}main table > caption + thead > tr:first-child > td, main table > colgroup + thead > tr:first-child > td, main table > thead:first-child > tr:first-child > td {border-top: 0;}main .table-striped > tbody > tr:nth-of-type(odd) {background-color: rgba(0, 0, 0, 0.05);}pre code {border: 0;padding: 0;display: block;}p code {font-size: 0.8rem;}code, pre {font-size: .875rem;background-color: #f9f9f9;}code {border-radius: 2px;border: 1px solid #d3d6db;display: inline-block;padding: 0 7px;}pre {overflow: auto;padding: 16px;margin: 16px 0 0;direction: ltr;white-space: pre;word-spacing: normal;word-break: normal;word-wrap: normal;-moz-tab-size: 4;-o-tab-size: 4;tab-size: 4;-webkit-hyphens: none;-ms-hyphens: none;hyphens: none;-webkit-overflow-scrolling: touch;border: 1px solid #d3d6db;}main.extra-padding{padding-bottom: 200px;}
+        </style>
+    </head>
+    <body data-spy="scroll" data-target="#linksMenu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-azure text-uppercase" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions">
+                20535: Architecting Microsoft Azure Solutions
+            </a>
+            <a href="https://github.com/MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions" target="_blank" class="btn btn-sm btn-outline-secondary text-light">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="ml-2">GitHub</span>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <main class="row extra-padding">
+            <aside class="col-sm-2">       
+                <nav id="linksMenu" class="toc sticky-top">
+                    <ul class="nav navbar-nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod04/20535A_LAB_AK_04.html#before-we-start">Before we start</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod04/20535A_LAB_AK_04.html#exercise-1-create-azure-container-service-acs-cluster">Exercise 1: Create Azure Container Service (ACS) Cluster</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod04/20535A_LAB_AK_04.html#exercise-2-deploy-docker-image-to-azure-container-service-acs-cluster">Exercise 2: Deploy Docker Image to Azure Container Service (ACS) Cluster</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod04/20535A_LAB_AK_04.html#exercise-3-deploy-docker-image-to-azure-container-instance">Exercise 3: Deploy Docker Image to Azure Container Instance</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod04/20535A_LAB_AK_04.html#exercise-4-cleanup-subscription">Exercise 4: Cleanup Subscription</a></li></ul>
+                </nav>         
+            </aside>
+            <hr class="">
+            <article class="col-sm-10 mb-5">
+                <h1 id="module-4-creating-managed-server-applications-in-azure">Module 4: Creating Managed Server Applications in Azure</h1>
+
+<h1 id="lab-answer-key-deploying-managed-server-workloads-to-azure">Lab Answer Key: Deploying Managed Server Workloads to Azure</h1>
+
+<h2 id="before-we-start">Before we start</h2>
+
+<ol>
+  <li>
+    <p>Ensure that you are logged in to your <strong>Windows 10</strong> Virtual Machine using the following credentials:</p>
+
+    <ul>
+      <li>
+        <p><strong>Username</strong>: Admin</p>
+      </li>
+      <li>
+        <p><strong>Password</strong>: Pa55w.rd</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Observe the <strong>Taskbar</strong> located at the bottom of your <strong>Windows 10</strong> desktop. The Taskbar contains the icons for the common applications we will use in the labs:</p>
+
+    <ul>
+      <li>
+        <p>Microsoft Edge</p>
+      </li>
+      <li>
+        <p>File Explorer</p>
+      </li>
+      <li>
+        <p><a href="https://code.visualstudio.com/">Visual Studio Code</a></p>
+      </li>
+      <li>
+        <p><a href="https://azure.microsoft.com/features/storage-explorer/">Microsoft Azure Storage Explorer</a></p>
+      </li>
+      <li>
+        <p>Bash on Ubuntu on Windows</p>
+      </li>
+      <li>
+        <p>Windows PowerShell</p>
+      </li>
+      <li>
+        <p>Microsoft Word 2016</p>
+      </li>
+    </ul>
+
+    <blockquote>
+      <p><strong>Note</strong>: You can also find shortcuts to these applications on the <strong>Desktop</strong> and in the <strong>Start Menu</strong>.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h2 id="exercise-1-create-azure-container-service-acs-cluster">Exercise 1: Create Azure Container Service (ACS) Cluster</h2>
+
+<h4 id="task-1-open-the-azure-portal">Task 1: Open the Azure Portal</h4>
+
+<ol>
+  <li>
+    <p>On the Taskbar, click the <strong>Microsoft Edge</strong> icon.</p>
+  </li>
+  <li>
+    <p>In the open browser window, navigate to the <strong>Azure Portal</strong> (<a href="https://portal.azure.com/">https://portal.azure.com</a>).</p>
+  </li>
+  <li>
+    <p>Enter the <strong>email address</strong> of your <em>Microsoft account</em>.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Next</strong> button.</p>
+  </li>
+  <li>
+    <p>Enter the <strong>password</strong> for your <em>Microsoft account</em>.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Sign in</strong> button.</p>
+  </li>
+</ol>
+
+<h4 id="task-2-create-docker-swarm-acs-cluster-using-cloud-shell">Task 2: Create Docker Swarm ACS Cluster using Cloud Shell</h4>
+
+<ol>
+  <li>
+    <p>At the top of the portal, click the <strong>Cloud Shell</strong> icon to open a new shell instance.</p>
+  </li>
+  <li>
+    <p>In the <strong>Cloud Shell</strong> command prompt at the bottom of the portal, type in the following command and press <strong>Enter</strong> to create a new <strong>Resource Group</strong>:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az group create --name MOD04ACSC --location eastus
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to create a new Docker Swarm cluster with a single agent and automatically generated <em>SSH keys</em>:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az acs create --name DockerSwarmCluster --orchestrator-type Swarm --resource-group MOD04ACSC --agent-count 1 --generate-ssh-keys
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Wait for the ACS creation operation to complete.</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: This operation can take up to five minutes.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="task-3-configure-tunnel-connection-to-acs-cluster-using-ssh">Task 3: Configure Tunnel Connection to ACS Cluster using SSH</h4>
+
+<ol>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to get a list of <strong>Public IP Addresses</strong> in your <strong>Resource Group</strong> that contain the term <strong>master</strong> in their name:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az network public-ip list --resource-group MOD04ACSC --query "[?contains(name, 'master')].{Name:name,IPAddress:ipAddress}" -o table
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The results of the query will look like this:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> Name                                                      IPAddress
+ --------------------------------------------------------  ------------
+ swarm-master-ip-dockerswar-mod04acsc-e91967mgmt-1FE2477D  52.170.19.88
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Record the value of the <strong>IPAddress</strong> field in the query results. This is the <em>IP Address</em> of your <em>Docker Swarm</em> <strong>master</strong>.</p>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to get a list of <strong>Public IP Addresses</strong> in your <strong>Resource Group</strong> that contain the term <strong>agent</strong> in their name:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az network public-ip list --resource-group MOD04ACSC --query "[?contains(name, 'agent')].{Name:name,IPAddress:ipAddress}" -o table
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>The results of the query will look like this:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> Name                                                      IPAddress
+ --------------------------------------------------------  ------------
+ swarm-agent-ip-dockerswar-mod04acsc-e91967agent-1FE2477D  52.170.22.39
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Record the value of the <strong>IPAddress</strong> field in the query results. This is the <em>IP Address</em> of your <em>Docker Swarm</em> <strong>agent pool</strong>.</p>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to create a SSH tunnel connection to the Docker Swarm <strong>master</strong> using the <em>IP Address</em> you recorded earlier:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> ssh -p 2200 -fNL 2375:localhost:2375 azureuser@[Master IP Address]
+</code></pre></div>    </div>
+
+    <p>Make sure you replace the <strong>[Master IP Address]</strong> placeholder with the actual IP Address of the Docker Swarm master. For example, if your master IP Address is <strong>52.170.19.88</strong>, your command will look like this:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> ssh -p 2200 -fNL 2375:localhost:2375 azureuser@52.170.19.88
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>You will see a prompt indicating that the authenticity of the host can’t be established. Type in <strong>yes</strong> and press <strong>Enter</strong> to continue connecting.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you created a new Docker Swarm cluster and connected to that cluster using a SSH tunnel.</p>
+</blockquote>
+
+<h2 id="exercise-2-deploy-docker-image-to-azure-container-service-acs-cluster">Exercise 2: Deploy Docker Image to Azure Container Service (ACS) Cluster</h2>
+
+<h4 id="task-1-deploy-a-basic-docker-image-to-acs-using-tunnel-connection">Task 1: Deploy a Basic Docker Image to ACS using Tunnel Connection</h4>
+
+<ol>
+  <li>
+    <p>Still within the Cloud Shell, type in the following command and press <strong>Enter</strong> to set an environment variable to make it easier to run <em>docker</em> commands:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> export DOCKER_HOST=:2375
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to validate that docker commands work with your Docker Swarm cluster:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> docker info
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to run the <strong>nginx</strong> web server in a container within your Docker Swarm cluster:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> docker run -d -p 80:80 --name webserver nginx
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>In a new browser tab, navigate to the <em>*agent pool</em> <em>IP address</em> you copied earlier in this lab.</p>
+  </li>
+  <li>
+    <p>Observe the nginx web server placeholder webpage.</p>
+  </li>
+  <li>
+    <p>Close the additional browser tab and return to the browser tab with the <strong>Azure Portal</strong> currently active.</p>
+  </li>
+  <li>
+    <p>Returning to the Cloud Shell, type in the following command and press <strong>Enter</strong> to list all running containers:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> docker ps
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to stop the <strong>webserver</strong> container:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> docker stop webserver
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to remove the <strong>webserver</strong> container:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> docker rm webserver
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to list all running containers:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> docker ps
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Close the <strong>Cloud Shell</strong> prompt at the bottom of the portal.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you deployed a Docker image (<strong>nginx</strong>) to the Azure Container Services’ hosted Docker Swarm.</p>
+</blockquote>
+
+<h2 id="exercise-3-deploy-docker-image-to-azure-container-instance">Exercise 3: Deploy Docker Image to Azure Container Instance</h2>
+
+<h4 id="task-1-create-azure-container-instance-with-docker-hub-image">Task 1: Create Azure Container Instance with Docker Hub Image</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Create a resource</strong> link.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Container Instance</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Azure Container Instances</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Azure Container Instances</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Create Azure Container Instance</strong> blade, select the <strong>Basics</strong> option to begin configuring the container instance by performing the following actions:</p>
+
+    <p>a. In the <strong>Container Name</strong> field, enter the value <strong>webapplication</strong>.</p>
+
+    <p>a. In the <strong>Container image type</strong> section, select the <strong>Public</strong> option.</p>
+
+    <p>a. In the <strong>Container image</strong> field, enter the value <strong>microsoft/aci-helloworld</strong>.</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Create new</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, enter the value <strong>MOD04ACIN</strong>  into the empty field..</p>
+
+    <p>a. In the <strong>Location</strong> field, select the <strong>East US</strong> location.</p>
+
+    <p>a. Click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>The <strong>Create Azure Container Instance</strong> blade will move on to the <strong>Configuration</strong> option, continue configuring the container instance by performing the following actions:</p>
+
+    <p>a. In the <strong>OS Type</strong> section, select the <strong>Linux</strong> option.</p>
+
+    <p>a. In the <strong>Number of cores</strong> list, select the <strong>2</strong> option.</p>
+
+    <p>a. In the <strong>Memory (GB)</strong> field, enter the value <strong>4</strong>.</p>
+
+    <p>a. In the <strong>Public IP address</strong> section, select the <strong>Yes</strong> option.</p>
+
+    <p>a. In the <strong>Port</strong> field, enter the value <strong>80</strong>.</p>
+
+    <p>a. Click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>The <strong>Create Azure Container Instance</strong> blade will move on to the <strong>Summary</strong> option. Confirm the details of your new <strong>Azure Container Instance</strong> and click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-2-validate-container-deployment">Task 2: Validate Container Deployment</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD04ACIN</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD04ACIN</strong> blade, select the <strong>Container Group</strong> you recently created.</p>
+  </li>
+  <li>
+    <p>In the <strong>Container group</strong> blade, locate the <strong>IP address</strong> field at the top of the blade. Copy the <em>value</em> of this field.</p>
+  </li>
+  <li>
+    <p>In a new browser tab, navigate to the IP address you copied in the previous step.</p>
+  </li>
+  <li>
+    <p>Observe the home page of the running Node.js web application.</p>
+  </li>
+  <li>
+    <p>Close the additional browser tab and return to the browser tab with the <strong>Azure Portal</strong> currently active.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you used an <strong>Azure Container Instance</strong> to deploy a single Docker container.</p>
+</blockquote>
+
+<h2 id="exercise-4-cleanup-subscription">Exercise 4: Cleanup Subscription</h2>
+
+<h4 id="task-1-open-cloud-shell">Task 1: Open Cloud Shell</h4>
+
+<ol>
+  <li>
+    <p>At the top of the portal, click the <strong>Cloud Shell</strong> icon to open a new shell instance.</p>
+  </li>
+  <li>
+    <p>In the <strong>Cloud Shell</strong> command prompt at the bottom of the portal, type in the following command and press <strong>Enter</strong> to list all resource groups in the subscription:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az group list
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="task-2-delete-resource-groups">Task 2: Delete Resource Groups</h4>
+
+<ol>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to delete the <strong>MOD04ACSC</strong> <em>Resource Group</em>:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az group delete --name MOD04ACSC --no-wait --yes
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to delete the <strong>MOD04ACIN</strong> <em>Resource Group</em>:</p>
+
+    <div class="highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> az group delete --name MOD04ACIN --no-wait --yes
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Close the <strong>Cloud Shell</strong> prompt at the bottom of the portal.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-close-active-applications">Task 3: Close Active Applications</h4>
+
+<ol>
+  <li>Close the currently running <strong>Microsoft Edge</strong> application.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you “cleaned up your subscription” by removing the <strong>Resource Groups</strong> used in this lab.</p>
+</blockquote>
+
+            </article>
+        </main>
+    </div>
+    <footer class="fixed-bottom">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-around">
+            <span class="navbar-text">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions" target="_blank" class="ml-2">
+                    MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions
+                </a>
+            </span>
+        </nav>
+    </footer>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 4_ Creating Managed Server Applications in Azure_files/jquery-3.2.1.slim.min.js.download" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 4_ Creating Managed Server Applications in Azure_files/popper.min.js.download" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 4_ Creating Managed Server Applications in Azure_files/bootstrap.min.js.download" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('article > h2').each(function() {
+                $('nav.toc > ul').append(
+                    $('<li>')
+                        .attr('class', 'nav-item')
+                        .append(
+                            $('<a>')
+                                .attr('class', 'nav-link')
+                                .text($(this).text())
+                                .attr('href', '#' + $(this).attr('id'))
+                        ) 
+                );
+            });
+            $('[data-spy="scroll"]').each(function () {
+                var $spy = $(this).scrollspy('refresh')
+            });
+        });
+    </script>
+
+
+
+<object id="__symantecPKIClientMessenger" data-supports-flavor-configuration="true" data-extension-version="0.5.0.109" style="display: none;"></object><span id="__symantecPKIClientDetector" style="display: none;">__PRESENT</span></body></html>

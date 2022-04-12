@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!-- saved from url=(0123)https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod03/20535A_LAB_AK_03.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            20535: Architecting Microsoft Azure Solutions - Module 3: Building Azure IaaS-Based Server Applications
+        </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./20535_ Architecting Microsoft Azure Solutions - Module 3_ Building Azure IaaS-Based Server Applications_files/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="./20535_ Architecting Microsoft Azure Solutions - Module 3_ Building Azure IaaS-Based Server Applications_files/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <style>
+            dl, ol, p, ul {margin-top: 1rem;}body {position: relative;}body, html {font-family: segoe-ui_normal, "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}p {margin-bottom: 0;}a:active, a:hover, a:visited {color: #0078d7;}a {word-wrap: break-word;}main ol ol, main ul ul {margin: 0 0 0 20px;}main ul ul > li {list-style-type: circle;}main ul ul ul > li {list-style-type: square;}main ol ol > li {list-style-type: lower-alpha;}main ol ol ol > li {list-style-type: lower-roman;}html {-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing: border-box;height: 100%;}body {background: #fff;color: #222;font-size: 100%;line-height: 160%;min-height: 100%;height: auto !important;}a {color: #0050C5;cursor: pointer;text-decoration: none;}a:hover {text-decoration: underline;}small {font-size: 11px;}dl, ol, ul {margin-bottom: 1rem;}blockquote {border-color: #bff1ff;color: inherit;font-size: smaller;padding: 20px;margin-top: 15px;border-radius: 6px;}blockquote:before {content: "\0024D8 Note";color: #0094bf;font-size: larger;font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}article img {max-width: 100%;}.bg-black {background-color: #000;}.text-black {color: #000;}.bg-azure {background-color: #0078d7;}.bg-note, blockquote {background-color: #d9f6ff;}.text-azure {color: #0078d7;}h5, h6 {letter-spacing: 1px;}h4, h5, h6 {margin-top: 36px;margin-bottom: 6px;}h1, h2 {margin-bottom: 0;}h1, h2 {font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;font-size: 2.5rem;margin-top: 10px;}h3, h4, h5, h6 {font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}h1, h2, h3, h4, h5, h6 {font-style: normal;font-weight: 300;line-height: 1.3;text-rendering: optimizeLegibility;word-wrap: break-word;}h2 {font-size: 1.75rem;margin-top: 32px;}h3 {font-size: 1.188rem;margin-top: 30px;margin-bottom: 18px;}h4 {font-size: 1rem;}h5 {font-size: 0.9rem;}h6 {font-size: 0.8rem;}.title {font-style: normal;font-weight: 300;line-height: 1.3;text-rendering: optimizeLegibility;word-wrap: break-word;margin-bottom: 10px;font-size: 1.75rem;margin-top: 32px;font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}nav.toc {margin-top: 24px !important;overflow-y: auto !important;flex-grow: 1 !important;}nav.toc a.nav-link, nav.toc li.nav-item, nav.toc ul.nav {outline: #000 solid 0 !important;-moz-box-shadow: inset 0 0 0 0 #000 !important;-webkit-box-shadow: inset 0 0 00 #000 !important;box-shadow: inset 0 0 0 0 #000 !important;}.toc a:focus, .toc li:focus, .toc ul:focus {-moz-box-shadow: inset 0 0 0 2px #0050C5;-webkit-box-shadow: inset 0 0 0 2px #0050C5;box-shadow: inset 0 0 0 2px #0050C5;}nav.toc ul.nav {margin-bottom: 0;padding-left: 10px;}nav.toc > ul.nav {display: block;margin-left: 0;padding-left: 0;}nav.toc > ul.nav a.nav-link {padding: 0.75rem 0.25rem;}nav.toc > ul.nav a.nav-link, nav.toc > ul.nav span {display: block;font-size: .875rem;line-height: 1.3;margin-left: .5rem;margin-right: 1rem;word-wrap: break-word;color: #222;}nav.toc > ul.nav a.nav-link {color: #222;}nav.toc > ul.nav a.nav-link:hover {color: #0078d7;}nav.toc > ul.nav a.nav-link.active {background-color: #0050c5;color: #FFF;}main th, pre {text-align: left;}main table caption, main td, main th {border-style: solid;border-color: #e3e3e3;}main th {font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}main td, main th {word-wrap: break-word;}main table {border-collapse: collapse;border-spacing: 0;table-layout: auto;width: 100%;font-size: 0.875rem;}main table caption {font-size: .8em;font-weight: 600;letter-spacing: 2px;text-transform: uppercase;padding: 1.2em;border-width: 0 0 1px;text-align: right;}main td, main th {display: table-cell;padding: 12px 16px;line-height: 1.5;vertical-align: top;border-width: 1px 0 0;}main th {font-size: .875rem;font-weight: 400;vertical-align: bottom;border-width: 0 0 1px;}main table > caption + thead > tr:first-child > td, main table > colgroup + thead > tr:first-child > td, main table > thead:first-child > tr:first-child > td {border-top: 0;}main .table-striped > tbody > tr:nth-of-type(odd) {background-color: rgba(0, 0, 0, 0.05);}pre code {border: 0;padding: 0;display: block;}p code {font-size: 0.8rem;}code, pre {font-size: .875rem;background-color: #f9f9f9;}code {border-radius: 2px;border: 1px solid #d3d6db;display: inline-block;padding: 0 7px;}pre {overflow: auto;padding: 16px;margin: 16px 0 0;direction: ltr;white-space: pre;word-spacing: normal;word-break: normal;word-wrap: normal;-moz-tab-size: 4;-o-tab-size: 4;tab-size: 4;-webkit-hyphens: none;-ms-hyphens: none;hyphens: none;-webkit-overflow-scrolling: touch;border: 1px solid #d3d6db;}main.extra-padding{padding-bottom: 200px;}
+        </style>
+    </head>
+    <body data-spy="scroll" data-target="#linksMenu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-azure text-uppercase" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions">
+                20535: Architecting Microsoft Azure Solutions
+            </a>
+            <a href="https://github.com/MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions" target="_blank" class="btn btn-sm btn-outline-secondary text-light">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="ml-2">GitHub</span>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <main class="row extra-padding">
+            <aside class="col-sm-2">       
+                <nav id="linksMenu" class="toc sticky-top">
+                    <ul class="nav navbar-nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod03/20535A_LAB_AK_03.html#before-we-start">Before we start</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod03/20535A_LAB_AK_03.html#exercise-1-deploy-a-virtual-machine-powershell-desired-state-configuration-dsc-using-arm">Exercise 1: Deploy a Virtual Machine PowerShell Desired State Configuration (DSC) using ARM</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod03/20535A_LAB_AK_03.html#exercise-2-deploy-a-virtual-machine-scale-set-vmss-using-powershell-desired-state-configuration-dsc">Exercise 2: Deploy a Virtual Machine Scale Set (VMSS) using PowerShell Desired State Configuration (DSC)</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod03/20535A_LAB_AK_03.html#exercise-3-cleanup-subscription">Exercise 3: Cleanup Subscription</a></li></ul>
+                </nav>         
+            </aside>
+            <hr class="">
+            <article class="col-sm-10 mb-5">
+                <h1 id="module-3-building-azure-iaas-based-server-applications">Module 3: Building Azure IaaS-Based Server Applications</h1>
+
+<h1 id="lab-answer-key-deploying-infrastructure-workloads-to-azure">Lab Answer Key: Deploying Infrastructure Workloads to Azure</h1>
+
+<h2 id="before-we-start">Before we start</h2>
+
+<ol>
+  <li>
+    <p>Ensure that you are logged in to your <strong>Windows 10</strong> Virtual Machine using the following credentials:</p>
+
+    <ul>
+      <li>
+        <p><strong>Username</strong>: Admin</p>
+      </li>
+      <li>
+        <p><strong>Password</strong>: Pa55w.rd</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Observe the <strong>Taskbar</strong> located at the bottom of your <strong>Windows 10</strong> desktop. The Taskbar contains the icons for the common applications we will use in the labs:</p>
+
+    <ul>
+      <li>
+        <p>Microsoft Edge</p>
+      </li>
+      <li>
+        <p>File Explorer</p>
+      </li>
+      <li>
+        <p><a href="https://code.visualstudio.com/">Visual Studio Code</a></p>
+      </li>
+      <li>
+        <p><a href="https://azure.microsoft.com/features/storage-explorer/">Microsoft Azure Storage Explorer</a></p>
+      </li>
+      <li>Bash on Ubuntu on Windows</li>
+      <li>
+        <p>Windows PowerShell</p>
+      </li>
+      <li>Microsoft Word 2016</li>
+    </ul>
+
+    <blockquote>
+      <p><strong>Note</strong>: You can also find shortcuts to these applications on the <strong>Desktop</strong> and in the <strong>Start Menu</strong>.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h2 id="exercise-1-deploy-a-virtual-machine-powershell-desired-state-configuration-dsc-using-arm">Exercise 1: Deploy a Virtual Machine PowerShell Desired State Configuration (DSC) using ARM</h2>
+
+<h4 id="task-1-open-the-azure-portal">Task 1: Open the Azure Portal</h4>
+
+<ol>
+  <li>
+    <p>On the Taskbar, click the <strong>Microsoft Edge</strong> icon.</p>
+  </li>
+  <li>
+    <p>In the open browser window, navigate to the <strong>Azure Portal</strong> (<a href="https://portal.azure.com/">https://portal.azure.com</a>).</p>
+  </li>
+  <li>
+    <p>Enter the <strong>email address</strong> of your <em>Microsoft account</em>.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Next</strong> button.</p>
+  </li>
+  <li>
+    <p>Enter the <strong>password</strong> for your <em>Microsoft account</em>.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Sign in</strong> button.</p>
+  </li>
+</ol>
+
+<h4 id="task-2-create-a-windows-virtual-machine">Task 2: Create a Windows Virtual Machine</h4>
+
+<ol>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Windows Server 2016</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Windows Server 2016 Datacenter</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Windows Server 2016 Datacenter</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Create virtual machine</strong> blade, select the <strong>Basics</strong> option to begin configuring the virtual machine by performing the following actions:</p>
+
+    <p>a. In the <strong>Name</strong> field, enter the value <strong>autoconfigvm</strong>.</p>
+
+    <p>a. In the <strong>VM disk type</strong> list, select the <strong>SSD</strong> option.</p>
+
+    <p>a. In the <strong>User name</strong> field, enter the value <strong>Student</strong>.</p>
+
+    <p>a. In the <strong>Password</strong> and <strong>Confirm password</strong> fields, enter the value <strong>StudentPa55w.rd</strong>.</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Create new</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, enter the value <strong>MOD03VDSC</strong>  into the empty field.</p>
+
+    <p>a. In the <strong>Location</strong> field, select the <strong>East US</strong> location.</p>
+
+    <p>a. Click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>The <strong>Create virtual machine</strong> blade will move on to the <strong>Size</strong> option, continue configuring the virtual machine by performing the following actions:</p>
+
+    <p>a. Click the <strong>View all</strong> link to view all potential VM sizes.</p>
+
+    <p>a. Select the <strong>DS2</strong> size.</p>
+
+    <p>a. Click the <strong>Select</strong> button.</p>
+  </li>
+  <li>
+    <p>The <strong>Create virtual machine</strong> blade will move on to the <strong>Settings</strong> option, continue configuring the virtual machine by performing the following actions:</p>
+
+    <p>a. Leave all options set to their default values.</p>
+
+    <p>a. Click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>The <strong>Create virtual machine</strong> blade will move on to the <strong>Summary</strong> option. Confirm the details of your new <strong>Virtual Machine</strong> and click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-view-dsc-configuration">Task 3: View DSC Configuration</h4>
+
+<ol>
+  <li>
+    <p>On the Taskbar, click the <strong>File Explorer</strong> icon.</p>
+  </li>
+  <li>
+    <p>In the <strong>File Explorer</strong> window that appears, navigate to the <strong>Allfiles (F):\Mod03\Labfiles\Starter</strong> folder.</p>
+  </li>
+  <li>
+    <p>Right-click the <strong>IISWebServer.zip</strong> file and select the <strong>Extract All…</strong> option.</p>
+  </li>
+  <li>
+    <p>In the <strong>Extract Compressed (Zipped) Folders</strong> dialog, perform the following actions:</p>
+
+    <p>a. In the <strong>Files will be extracted to this folder:</strong> field, enter the value <strong>(F):\Mod03\Labfiles\Starter\IISWebServer</strong>.</p>
+
+    <p>a. Ensure that the <strong>Show extracted files when complete</strong> checkbox is selected.</p>
+
+    <p>a. Click the <strong>Extract</strong> button.</p>
+  </li>
+  <li>
+    <p>In the new <strong>File Explorer</strong> window that appears, right-click the <strong>IISWebServer.ps1</strong> file and select the <strong>Open with Code</strong> option to start the <strong>Visual Studio Code</strong> application.</p>
+  </li>
+  <li>
+    <p>In the <strong>Visual Studio Code</strong> window that appears, observe the content of the PowerShell script.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>Visual Studio Code</strong> window, click the <strong>File</strong> menu and select the <strong>Close Window</strong> option.</p>
+  </li>
+  <li>
+    <p>Close both <strong>File Explorer</strong> windows.</p>
+  </li>
+  <li>
+    <p>Return to the <strong>Microsoft Edge</strong> window with the <strong>Azure Portal</strong> open.</p>
+  </li>
+</ol>
+
+<h4 id="task-4-upload-dsc-configuration-module-to-azure-storage">Task 4: Upload DSC Configuration Module to Azure Storage</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Create a resource</strong> link.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Storage</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Storage account - blob, file, table, queue</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Storage account - blob, file, table, queue</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Create storage account</strong> blade, perform the following actions:</p>
+
+    <p>a. In the <strong>Name</strong> field, enter a globally unique name.</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Use existing</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, locate the dropdown list and select the <strong>MOD03VDSC</strong> option.</p>
+
+    <p>a. In the <strong>Location</strong> field, select the <strong>East US</strong> location.</p>
+
+    <p>a. Leave all other fields set to their default values.</p>
+
+    <p>a. Click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD03VDSC</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD03VDSC</strong> blade, select the <strong>Storage Account</strong> you recently created.</p>
+  </li>
+  <li>
+    <p>In the <strong>Storage account</strong> blade, click the <strong>Blobs</strong> link in the center of the blade.</p>
+  </li>
+  <li>
+    <p>In the <strong>Blob service</strong> blade, click the <strong>Container</strong> button at the top of the blade.</p>
+  </li>
+  <li>
+    <p>In the <strong>New container</strong> dialog that appears, perform the following actions:</p>
+
+    <p>a. In the <strong>Name</strong> field, enter the value <strong>config</strong>.</p>
+
+    <p>a. In the <strong>Public access level</strong> list, select the <strong>Blob (anonymous read access for blobs only)</strong> option.</p>
+
+    <p>a. Click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Blob service</strong> blade, select the new <strong>config</strong> container from the list of containers.</p>
+  </li>
+  <li>
+    <p>In the <em>config</em> blade, click the <strong>Upload</strong> button at the top of the blade.</p>
+  </li>
+  <li>
+    <p>In the <strong>Upload blob</strong> popup, perform the following actions:</p>
+
+    <p>a. In the <strong>Files</strong> field, click the <em>blue folder</em> button to the right of the field.</p>
+
+    <p>a. In the <strong>Open</strong> file dialog that appears, navigate to the <strong>Allfiles (F):\Mod03\Labfiles\Starter</strong> folder.</p>
+
+    <p>a. Select the <strong>IISWebServer.zip</strong> file.</p>
+
+    <p>a. Click the <strong>Open</strong> button to close the dialog and return to the <strong>Upload blob</strong> popup.</p>
+
+    <p>a. Click the <strong>Upload</strong> button.</p>
+  </li>
+  <li>
+    <p>Return to the <strong>config</strong> blade, select the <strong>IISWebServer.zip</strong> blob in the list of blobs.</p>
+  </li>
+  <li>
+    <p>In the <strong>Blob properties</strong> popup that appears, locate and record the value of the <strong>URL</strong> property. This URL will be used later in this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-5-deploy-a-virtual-machine-arm-template-using-powershell-dsc-extension">Task 5: Deploy a Virtual Machine ARM Template using PowerShell DSC Extension</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Create a resource</strong> link.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Template Deployment</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Template deployment</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Template deployment</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Custom deployment</strong> blade, click the <em>Build your own template in the editor</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Edit template</strong> blade, locate the text editor and delete the existing template content.</p>
+  </li>
+  <li>
+    <p>Copy and paste the following ARM template into the template editor:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> {
+     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+     "contentVersion": "1.0.0.0",
+     "parameters": {
+         "virtualMachineName": {
+             "type": "string",
+             "defaultValue": "autoconfigvm"
+         },
+         "configurationModuleUrl": {
+             "type": "string"
+         },
+         "extensionFunction": {
+             "type": "string",
+             "defaultValue": "IISWebServer.ps1\\IISWebServer"
+         }
+     },
+     "resources": [
+         {
+             "apiVersion": "2017-03-30",
+             "type": "Microsoft.Compute/virtualMachines/extensions",
+             "name": "[concat(parameters('virtualMachineName'), '/dscExtension')]",
+             "location": "[resourceGroup().location]",
+             "properties": {
+                 "publisher": "Microsoft.Powershell",
+                 "type": "DSC",
+                 "typeHandlerVersion": "2.19",
+                 "autoUpgradeMinorVersion": true,
+                 "settings": {
+                     "ModulesUrl": "[parameters('configurationModuleUrl')]",
+                     "ConfigurationFunction": "[parameters('extensionFunction')]",
+                     "Properties": {
+                         "MachineName": "[parameters('virtualMachineName')]"
+                     }
+                 },
+                 "protectedSettings": null
+             }
+         }
+     ]
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Click the <strong>Save</strong> button to persist the template.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Custom deployment</strong> blade, perform the following actions:</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Use existing</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, locate the dropdown list and select the <strong>MOD03VDSC</strong> option.</p>
+
+    <p>a. Leave the <strong>Virtual Machine Name</strong> field set to its default value: <strong>autoconfigvm</strong>.</p>
+
+    <p>a. In the <strong>Configuration Module Url</strong> field, enter the URL that you recorded for the uploaded blob earlier in this lab.</p>
+
+    <p>a. Leave the <strong>Extension Function</strong> field set to its default value: <strong>IISWebServer.ps1\IISWebServer</strong>.</p>
+
+    <p>a. In the <strong>Terms and Conditions</strong> section, select the <em>I agree to the terms and conditions stated above</em> checkbox.</p>
+
+    <p>a. Click the <strong>Purchase</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the deployment of the DSC configuration to complete before moving on with this lab.</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: DSC configuration deployment can take up to ten minutes.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="task-6-validate-virtual-machine-instance-is-serving-web-content">Task 6: Validate Virtual Machine Instance is Serving Web Content</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD03VDSC</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD03VDSC</strong> blade, select the <strong>Network Security Group</strong> you recently created.</p>
+  </li>
+  <li>
+    <p>In the <strong>Network security group</strong> blade, locate the <strong>Settings</strong> section on the left side of the blade and click the <strong>Inbound security rules</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Inbound security rules</strong> pane, click the <strong>Add</strong> button at the top of the blade.</p>
+  </li>
+  <li>
+    <p>In the <strong>Add inbound security rule</strong> pane, perform the following actions:</p>
+
+    <p>a. In the <strong>Source</strong> list, select the <strong>Any</strong> value.</p>
+
+    <p>a. In the <strong>Source port ranges</strong> field, enter the value <strong>*</strong>.</p>
+
+    <p>a. In the <strong>Destination</strong> list, select the <strong>Any</strong> value.</p>
+
+    <p>a. In the <strong>Destination port ranges</strong> field, enter the value <strong>80</strong>.</p>
+
+    <p>a. In the <strong>Protocol</strong> section, select the <strong>TCP</strong> option.</p>
+
+    <p>a. In the <strong>Action</strong> section, select the <strong>Allow</strong> option.</p>
+
+    <p>a. In the <strong>Priority</strong> field, enter the value <strong>1001</strong>.</p>
+
+    <p>a. In the <strong>Name</strong> field, enter the value <strong>HTTP</strong>.</p>
+
+    <p>a. In the <strong>Description</strong> field, enter the value <strong>Web requests for HTTP</strong>.</p>
+
+    <p>a. Click the <strong>OK</strong> button.</p>
+  </li>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD03VDSC</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD03VDSC</strong> blade, select the <strong>Virtual Machine</strong> you recently created.</p>
+  </li>
+  <li>
+    <p>In the <strong>Virtual machine</strong> blade, locate the <strong>Public IP address</strong> field at the top of the blade. Copy the <em>value</em> of this field.</p>
+  </li>
+  <li>
+    <p>In a new browser tab, navigate to the IP address you copied in the previous step.</p>
+  </li>
+  <li>
+    <p>Observe the <em>IIS</em> placeholder webpage.</p>
+  </li>
+  <li>
+    <p>Close the additional browser tab and return to the browser tab with the <strong>Azure Portal</strong> currently active.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you created a <strong>Virtual Machine</strong> manually and then used a <strong>PowerShell DSC</strong> configuration module to apply changes to the Virtual Machine in an unattended manner.</p>
+</blockquote>
+
+<h2 id="exercise-2-deploy-a-virtual-machine-scale-set-vmss-using-powershell-desired-state-configuration-dsc">Exercise 2: Deploy a Virtual Machine Scale Set (VMSS) using PowerShell Desired State Configuration (DSC)</h2>
+
+<h4 id="task-1-view-arm-template">Task 1: View ARM Template</h4>
+
+<ol>
+  <li>
+    <p>On the Taskbar, click the <strong>File Explorer</strong> icon.</p>
+  </li>
+  <li>
+    <p>In the <strong>File Explorer</strong> window that appears, navigate to the <strong>Allfiles (F):\Mod03\Labfiles\Starter</strong> folder.</p>
+  </li>
+  <li>
+    <p>Right-click the <strong>vmss.json</strong> file and select the <strong>Open with Code</strong> option to start the <strong>Visual Studio Code</strong> application.</p>
+  </li>
+  <li>
+    <p>In the <strong>Visual Studio Code</strong> window that appears, observe the content of the JSON file.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>Visual Studio Code</strong> window, click the <strong>File</strong> menu and select the <strong>Close Window</strong> option.</p>
+  </li>
+  <li>
+    <p>Close the <strong>File Explorer</strong> window.</p>
+  </li>
+  <li>
+    <p>Return to the <strong>Microsoft Edge</strong> window with the <strong>Azure Portal</strong> open.</p>
+  </li>
+</ol>
+
+<h4 id="task-2-deploy-a-windows-vmss-using-arm">Task 2: Deploy a Windows VMSS using ARM</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Create a resource</strong> link.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Template Deployment</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Template deployment</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Template deployment</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Custom deployment</strong> blade, click the <em>Build your own template in the editor</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Edit template</strong> blade, click the <strong>Load file</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Open</strong> file dialog that appears, navigate to the <strong>Allfiles (F):\Mod03\Labfiles\Starter</strong> folder.</p>
+  </li>
+  <li>
+    <p>Select the <strong>vmss.json</strong> file.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Open</strong> button.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Edit template</strong> blade, click the <strong>Save</strong> button to persist the template.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Custom deployment</strong> blade, perform the following actions:</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Create new</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, enter the value <strong>MOD03VMSS</strong> into the empty field.</p>
+
+    <p>a. In the <strong>Instance Count</strong> field, enter the value <strong>2</strong>.</p>
+
+    <p>a. Leave the <strong>Overprovision</strong> field set to its default value: <strong>true</strong>.</p>
+
+    <p>a. In the <strong>Configuration Module Url</strong> field, enter the URL that you recorded for the uploaded blob earlier in this lab.</p>
+
+    <p>a. In the <strong>Terms and Conditions</strong> section, select the <em>I agree to the terms and conditions stated above</em> checkbox.</p>
+
+    <p>a. Click the <strong>Purchase</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-validate-vmss-instances-are-serving-web-content">Task 3: Validate VMSS Instances are Serving Web Content</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD03VMSS</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD03VMSS</strong> blade, select the <strong>Virtual Machine Scale Set</strong> you recently created.</p>
+  </li>
+  <li>
+    <p>In the <strong>Virtual machine scale set</strong> blade, locate the <strong>Public IP address</strong> field at the top of the blade. Copy the <em>value</em> of this field.</p>
+  </li>
+  <li>
+    <p>In a new browser tab, navigate to the IP address you copied in the previous step.</p>
+  </li>
+  <li>
+    <p>Observe the <em>IIS</em> placeholder webpage.</p>
+  </li>
+  <li>
+    <p>Close the additional browser tab and return to the browser tab with the <strong>Azure Portal</strong> currently active.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you created a <strong>Virtual Machine Scale Set</strong> and configured the individual instances using PowerShell DSC to facilitate the VMSS service’s ability to provision and de-provision <strong>Virtual Machine</strong> instances automatically.</p>
+</blockquote>
+
+<h2 id="exercise-3-cleanup-subscription">Exercise 3: Cleanup Subscription</h2>
+
+<h4 id="task-1-open-cloud-shell">Task 1: Open Cloud Shell</h4>
+
+<ol>
+  <li>
+    <p>At the top of the portal, click the <strong>Cloud Shell</strong> icon to open a new shell instance.</p>
+  </li>
+  <li>
+    <p>In the <strong>Cloud Shell</strong> command prompt at the bottom of the portal, type in the following command and press <strong>Enter</strong> to list all resource groups in the subscription:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group list
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="task-2-delete-resource-groups">Task 2: Delete Resource Groups</h4>
+
+<ol>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to delete the <strong>MOD03VDSC</strong> <em>Resource Group</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group delete --name MOD03VDSC --no-wait --yes
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to delete the <strong>MOD03VMSS</strong> <em>Resource Group</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group delete --name MOD03VMSS --no-wait --yes
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Close the <strong>Cloud Shell</strong> prompt at the bottom of the portal.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-close-active-applications">Task 3: Close Active Applications</h4>
+
+<ol>
+  <li>Close the currently running <strong>Microsoft Edge</strong> application.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you “cleaned up your subscription” by removing the <strong>Resource Groups</strong> used in this lab.</p>
+</blockquote>
+
+            </article>
+        </main>
+    </div>
+    <footer class="fixed-bottom">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-around">
+            <span class="navbar-text">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions" target="_blank" class="ml-2">
+                    MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions
+                </a>
+            </span>
+        </nav>
+    </footer>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 3_ Building Azure IaaS-Based Server Applications_files/jquery-3.2.1.slim.min.js.download" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 3_ Building Azure IaaS-Based Server Applications_files/popper.min.js.download" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 3_ Building Azure IaaS-Based Server Applications_files/bootstrap.min.js.download" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('article > h2').each(function() {
+                $('nav.toc > ul').append(
+                    $('<li>')
+                        .attr('class', 'nav-item')
+                        .append(
+                            $('<a>')
+                                .attr('class', 'nav-link')
+                                .text($(this).text())
+                                .attr('href', '#' + $(this).attr('id'))
+                        ) 
+                );
+            });
+            $('[data-spy="scroll"]').each(function () {
+                var $spy = $(this).scrollspy('refresh')
+            });
+        });
+    </script>
+
+
+
+<object id="__symantecPKIClientMessenger" data-supports-flavor-configuration="true" data-extension-version="0.5.0.109" style="display: none;"></object><span id="__symantecPKIClientDetector" style="display: none;">__PRESENT</span></body></html>

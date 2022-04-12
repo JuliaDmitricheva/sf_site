@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<!-- saved from url=(0123)https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod02/20535A_LAB_AK_02.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>
+            20535: Architecting Microsoft Azure Solutions - Module 2: Deploying Resources with Azure Resource Manager
+        </title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="./20535_ Architecting Microsoft Azure Solutions - Module 2_ Deploying Resources with Azure Resource Manager_files/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="./20535_ Architecting Microsoft Azure Solutions - Module 2_ Deploying Resources with Azure Resource Manager_files/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <style>
+            dl, ol, p, ul {margin-top: 1rem;}body {position: relative;}body, html {font-family: segoe-ui_normal, "Segoe UI", Segoe, "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}p {margin-bottom: 0;}a:active, a:hover, a:visited {color: #0078d7;}a {word-wrap: break-word;}main ol ol, main ul ul {margin: 0 0 0 20px;}main ul ul > li {list-style-type: circle;}main ul ul ul > li {list-style-type: square;}main ol ol > li {list-style-type: lower-alpha;}main ol ol ol > li {list-style-type: lower-roman;}html {-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;box-sizing: border-box;height: 100%;}body {background: #fff;color: #222;font-size: 100%;line-height: 160%;min-height: 100%;height: auto !important;}a {color: #0050C5;cursor: pointer;text-decoration: none;}a:hover {text-decoration: underline;}small {font-size: 11px;}dl, ol, ul {margin-bottom: 1rem;}blockquote {border-color: #bff1ff;color: inherit;font-size: smaller;padding: 20px;margin-top: 15px;border-radius: 6px;}blockquote:before {content: "\0024D8 Note";color: #0094bf;font-size: larger;font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}article img {max-width: 100%;}.bg-black {background-color: #000;}.text-black {color: #000;}.bg-azure {background-color: #0078d7;}.bg-note, blockquote {background-color: #d9f6ff;}.text-azure {color: #0078d7;}h5, h6 {letter-spacing: 1px;}h4, h5, h6 {margin-top: 36px;margin-bottom: 6px;}h1, h2 {margin-bottom: 0;}h1, h2 {font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;font-size: 2.5rem;margin-top: 10px;}h3, h4, h5, h6 {font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}h1, h2, h3, h4, h5, h6 {font-style: normal;font-weight: 300;line-height: 1.3;text-rendering: optimizeLegibility;word-wrap: break-word;}h2 {font-size: 1.75rem;margin-top: 32px;}h3 {font-size: 1.188rem;margin-top: 30px;margin-bottom: 18px;}h4 {font-size: 1rem;}h5 {font-size: 0.9rem;}h6 {font-size: 0.8rem;}.title {font-style: normal;font-weight: 300;line-height: 1.3;text-rendering: optimizeLegibility;word-wrap: break-word;margin-bottom: 10px;font-size: 1.75rem;margin-top: 32px;font-family: segoe-ui_light, "Segoe UI Light", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}nav.toc {margin-top: 24px !important;overflow-y: auto !important;flex-grow: 1 !important;}nav.toc a.nav-link, nav.toc li.nav-item, nav.toc ul.nav {outline: #000 solid 0 !important;-moz-box-shadow: inset 0 0 0 0 #000 !important;-webkit-box-shadow: inset 0 0 00 #000 !important;box-shadow: inset 0 0 0 0 #000 !important;}.toc a:focus, .toc li:focus, .toc ul:focus {-moz-box-shadow: inset 0 0 0 2px #0050C5;-webkit-box-shadow: inset 0 0 0 2px #0050C5;box-shadow: inset 0 0 0 2px #0050C5;}nav.toc ul.nav {margin-bottom: 0;padding-left: 10px;}nav.toc > ul.nav {display: block;margin-left: 0;padding-left: 0;}nav.toc > ul.nav a.nav-link {padding: 0.75rem 0.25rem;}nav.toc > ul.nav a.nav-link, nav.toc > ul.nav span {display: block;font-size: .875rem;line-height: 1.3;margin-left: .5rem;margin-right: 1rem;word-wrap: break-word;color: #222;}nav.toc > ul.nav a.nav-link {color: #222;}nav.toc > ul.nav a.nav-link:hover {color: #0078d7;}nav.toc > ul.nav a.nav-link.active {background-color: #0050c5;color: #FFF;}main th, pre {text-align: left;}main table caption, main td, main th {border-style: solid;border-color: #e3e3e3;}main th {font-family: segoe-ui_semibold, "Segoe UI Semibold", "Segoe WP", "Helvetica Neue", Helvetica, sans-serif;}main td, main th {word-wrap: break-word;}main table {border-collapse: collapse;border-spacing: 0;table-layout: auto;width: 100%;font-size: 0.875rem;}main table caption {font-size: .8em;font-weight: 600;letter-spacing: 2px;text-transform: uppercase;padding: 1.2em;border-width: 0 0 1px;text-align: right;}main td, main th {display: table-cell;padding: 12px 16px;line-height: 1.5;vertical-align: top;border-width: 1px 0 0;}main th {font-size: .875rem;font-weight: 400;vertical-align: bottom;border-width: 0 0 1px;}main table > caption + thead > tr:first-child > td, main table > colgroup + thead > tr:first-child > td, main table > thead:first-child > tr:first-child > td {border-top: 0;}main .table-striped > tbody > tr:nth-of-type(odd) {background-color: rgba(0, 0, 0, 0.05);}pre code {border: 0;padding: 0;display: block;}p code {font-size: 0.8rem;}code, pre {font-size: .875rem;background-color: #f9f9f9;}code {border-radius: 2px;border: 1px solid #d3d6db;display: inline-block;padding: 0 7px;}pre {overflow: auto;padding: 16px;margin: 16px 0 0;direction: ltr;white-space: pre;word-spacing: normal;word-break: normal;word-wrap: normal;-moz-tab-size: 4;-o-tab-size: 4;tab-size: 4;-webkit-hyphens: none;-ms-hyphens: none;hyphens: none;-webkit-overflow-scrolling: touch;border: 1px solid #d3d6db;}main.extra-padding{padding-bottom: 200px;}
+        </style>
+    </head>
+    <body data-spy="scroll" data-target="#linksMenu">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container d-flex justify-content-between">
+            <a class="my-1 title text-azure text-uppercase" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions">
+                20535: Architecting Microsoft Azure Solutions
+            </a>
+            <a href="https://github.com/MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions" target="_blank" class="btn btn-sm btn-outline-secondary text-light">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <span class="ml-2">GitHub</span>
+            </a>
+        </div>
+    </nav>
+    <div class="container">
+        <main class="row extra-padding">
+            <aside class="col-sm-2">       
+                <nav id="linksMenu" class="toc sticky-top">
+                    <ul class="nav navbar-nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod02/20535A_LAB_AK_02.html#before-we-start">Before we start</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod02/20535A_LAB_AK_02.html#exercise-1-create-resource-groups">Exercise 1: Create Resource Groups</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod02/20535A_LAB_AK_02.html#exercise-2-deploy-a-minimal-template">Exercise 2: Deploy a Minimal Template</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod02/20535A_LAB_AK_02.html#exercise-3-deploy-a-simple-template">Exercise 3: Deploy a Simple Template</a></li><li class="nav-item"><a class="nav-link" href="https://microsoftlearning.github.io/20535-ArchitectingMicrosoftAzureSolutions/Instructions/Labs/Mod02/20535A_LAB_AK_02.html#exercise-4-cleanup-subscription">Exercise 4: Cleanup Subscription</a></li></ul>
+                </nav>         
+            </aside>
+            <hr class="">
+            <article class="col-sm-10 mb-5">
+                <h1 id="module-2-deploying-resources-with-azure-resource-manager">Module 2: Deploying Resources with Azure Resource Manager</h1>
+
+<h1 id="lab-answer-key-getting-started-with-azure-resource-manager">Lab Answer Key: Getting Started with Azure Resource Manager</h1>
+
+<h2 id="before-we-start">Before we start</h2>
+
+<ol>
+  <li>
+    <p>Ensure that you are logged in to your <strong>Windows 10</strong> Virtual Machine using the following credentials:</p>
+
+    <ul>
+      <li>
+        <p><strong>Username</strong>: Admin</p>
+      </li>
+      <li>
+        <p><strong>Password</strong>: Pa55w.rd</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Observe the <strong>Taskbar</strong> located at the bottom of your <strong>Windows 10</strong> desktop. The Taskbar contains the icons for the common applications we will use in the labs:</p>
+
+    <ul>
+      <li>
+        <p>Microsoft Edge</p>
+      </li>
+      <li>
+        <p>File Explorer</p>
+      </li>
+      <li>
+        <p><a href="https://code.visualstudio.com/">Visual Studio Code</a></p>
+      </li>
+      <li>
+        <p><a href="https://azure.microsoft.com/features/storage-explorer/">Microsoft Azure Storage Explorer</a></p>
+      </li>
+      <li>
+        <p>Bash on Ubuntu on Windows</p>
+      </li>
+      <li>
+        <p>Windows PowerShell</p>
+      </li>
+      <li>
+        <p>Microsoft Word 2016</p>
+      </li>
+    </ul>
+
+    <blockquote>
+      <p><strong>Note</strong>: You can also find shortcuts to these applications on the <strong>Desktop</strong> and in the <strong>Start Menu</strong>.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h2 id="exercise-1-create-resource-groups">Exercise 1: Create Resource Groups</h2>
+
+<h4 id="task-1-open-the-azure-portal">Task 1: Open the Azure Portal</h4>
+
+<ol>
+  <li>
+    <p>On the Taskbar, click the <strong>Microsoft Edge</strong> icon.</p>
+  </li>
+  <li>
+    <p>In the open browser window, navigate to the <strong>Azure Portal</strong> (<a href="https://portal.azure.com/">https://portal.azure.com</a>).</p>
+  </li>
+  <li>
+    <p>Enter the <strong>email address</strong> of your <em>Microsoft account</em>.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Next</strong> button.</p>
+  </li>
+  <li>
+    <p>Enter the <strong>password</strong> for your <em>Microsoft account</em>.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Sign in</strong> button.</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: If this is your first time logging in to the <strong>Azure Portal</strong>, you will see a dialog with a <em>tour</em> of the portal. Click <strong>Get Started</strong> to begin using the portal.</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="task-2-create-a-resource-group-using-the-portal">Task 2: Create a Resource Group using the Portal</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Create a resource</strong> link.</p>
+
+    <blockquote>
+      <p>The <strong>Create a resource</strong> icon is a <em>plus-sign</em> character.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Resource Group</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Resource group</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource group</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the additional <strong>Resource group</strong> blade, perform the following actions:</p>
+
+    <p>a. In the <strong>Resource group name</strong> field, enter the value <strong>MOD02STOR</strong>.</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group location</strong> field, select the <strong>East US</strong> location.</p>
+
+    <p>a. Click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-create-a-resource-group-using-the-cloud-shell-and-azure-cli">Task 3: Create a Resource Group using the Cloud Shell and Azure CLI</h4>
+
+<ol>
+  <li>
+    <p>At the top of the portal, click the <strong>Cloud Shell</strong> icon to open a new shell instance.</p>
+
+    <blockquote>
+      <p><strong>Note</strong>: The <strong>Cloud Shell</strong> icon is a symbol that is constructed of the combination of the <em>greater than</em> and <em>underscore</em> characters.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Because this is your first time opening the <strong>Cloud Shell</strong> using your <em>Azure Pass</em> subscription, you will see a wizard to configure <strong>Cloud Shell</strong> for first-time usage. Perform the following actions:</p>
+
+    <p>a. When offered a choice between <strong>Bash</strong> or <strong>PowerShell</strong>, select the <strong>Bash</strong> option.</p>
+
+    <p>a. You will then see a dialog prompting you to create a new <strong>Storage Account</strong> to begin using the shell. You can safely accept the default settings and click the <strong>Create storage</strong> button.</p>
+
+    <p>a. Wait for the <strong>Cloud Shell</strong> to finish its first-time setup procedures before moving on with the lab.</p>
+
+    <blockquote>
+      <p>If you do not see the configuration options for <strong>Cloud Shell</strong>, this is most likely because you are using an existing subscription with this course’s labs. The labs are written from the perspective that you are using a new Azure Pass subscription. You may see some small discrepancies in future lab instructions.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>In the <strong>Cloud Shell</strong> command prompt at the bottom of the portal, type in the following command and press <strong>Enter</strong> to view a list of possible CLI commands:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az --help
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to view a list of possible CLI commands for <em>Resource Groups</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group --help
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to view a list of possible CLI commands to <em>create a Resource Group</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group create --help
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to view a list of possible CLI commands to <em>list Resource Groups</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group list --help
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to list all resource groups in the subscription:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group list
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to create a new resource group with the following details:</p>
+
+    <ul>
+      <li>
+        <p><strong>Name</strong>: MOD02APPS</p>
+      </li>
+      <li>
+        <p><strong>Location</strong>: East US</p>
+      </li>
+    </ul>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group create --name MOD02APPS --location eastus
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to list all resource groups in the subscription:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group list
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Close the <strong>Cloud Shell</strong> prompt at the bottom of the portal.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you used the <strong>Azure Portal</strong> to create a resource group directly using the portal interface. You also used the <strong>Cloud Shell</strong> within the portal to create a resource group using the <strong>Azure CLI</strong> tool.</p>
+</blockquote>
+
+<h2 id="exercise-2-deploy-a-minimal-template">Exercise 2: Deploy a Minimal Template</h2>
+
+<h4 id="task-1-deploy-storage-account-arm-template">Task 1: Deploy Storage Account ARM Template</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>New</strong> link.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Template Deployment</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Template deployment</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Template deployment</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Custom deployment</strong> blade, click the <em>Build your own template in the editor</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Edit template</strong> blade, locate the text editor and delete the existing template content.</p>
+  </li>
+  <li>
+    <p>Copy and paste the following ARM template into the template editor:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> {
+     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+     "contentVersion": "1.0.0.0",
+     "resources": [
+         {
+             "apiVersion": "2015-06-15",
+             "name": "[concat('stor', uniqueString(resourceGroup().id))]",
+             "type": "Microsoft.Storage/storageAccounts",
+             "location": "[resourceGroup().location]",
+             "properties": {
+                 "accountType": "Standard_LRS"
+             }
+         }
+     ]
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Click the <strong>Save</strong> button to persist the template.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Custom deployment</strong> blade, perform the following actions:</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Use existing</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, locate the list and select the <strong>MOD02STOR</strong> option.</p>
+
+    <p>a. In the <strong>Terms and Conditions</strong> section, select the <em>I agree to the terms and conditions stated above</em> checkbox.</p>
+
+    <p>a. Click the <strong>Purchase</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-2-view-deployment-metadata">Task 2: View Deployment Metadata</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD02STOR</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD02STOR</strong> blade, locate the <strong>Settings</strong> section on the left side of the blade and click the <strong>Deployments</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Deployments</strong> pane, select the latest deployment to view its metadata in a new blade.</p>
+  </li>
+  <li>
+    <p>Within the deployment blade, observe the information displayed in the <strong>Operation details</strong> section.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you deployed a minimal ARM template that created a deployment using a simple ARM template that deployed a single resource without any input or output values.</p>
+</blockquote>
+
+<h2 id="exercise-3-deploy-a-simple-template">Exercise 3: Deploy a Simple Template</h2>
+
+<h4 id="task-1-view-arm-template">Task 1: View ARM Template</h4>
+
+<ol>
+  <li>
+    <p>On the Taskbar, click the <strong>File Explorer</strong> icon.</p>
+  </li>
+  <li>
+    <p>In the <strong>File Explorer</strong> window that appears, navigate to the <strong>Allfiles (F):\Mod02\Labfiles\Starter</strong> folder.</p>
+  </li>
+  <li>
+    <p>Right-click the <strong>deploy.json</strong> file and select the <strong>Open with Code</strong> option to start the <strong>Visual Studio Code</strong> application.</p>
+  </li>
+  <li>
+    <p>In the <strong>Visual Studio Code</strong> window that appears, observe the content of the JSON file.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>Visual Studio Code</strong> window, click the <strong>File</strong> menu and select the <strong>Close Folder</strong> option.</p>
+  </li>
+  <li>
+    <p>Close the <strong>File Explorer</strong> window.</p>
+  </li>
+  <li>
+    <p>Return to the <strong>Microsoft Edge</strong> window with the <strong>Azure Portal</strong> open.</p>
+  </li>
+</ol>
+
+<h4 id="task-2-deploy-app-service-arm-template">Task 2: Deploy App Service ARM Template</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>New</strong> link.</p>
+  </li>
+  <li>
+    <p>At the top of the <strong>New</strong> blade, locate the <strong>Search the Marketplace</strong> field.</p>
+  </li>
+  <li>
+    <p>Enter the text <strong>Template Deployment</strong> into the search field and press <strong>Enter</strong>.</p>
+  </li>
+  <li>
+    <p>In the <strong>Everything</strong> search results blade, select the <strong>Template deployment</strong> result.</p>
+  </li>
+  <li>
+    <p>In the <strong>Template deployment</strong> blade, click the <strong>Create</strong> button.</p>
+  </li>
+  <li>
+    <p>In the <strong>Custom deployment</strong> blade, click the <em>Build your own template in the editor</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Edit template</strong> blade, click the <strong>Load file</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Open</strong> file dialog that appears, navigate to the <strong>Allfiles (F):\Mod02\Labfiles\Starter</strong> folder.</p>
+  </li>
+  <li>
+    <p>Select the <strong>deploy.json</strong> file.</p>
+  </li>
+  <li>
+    <p>Click the <strong>Open</strong> button.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Edit template</strong> blade, click the <strong>Save</strong> button to persist the template.</p>
+  </li>
+  <li>
+    <p>Back in the <strong>Custom deployment</strong> blade, perform the following actions:</p>
+
+    <p>a. Leave the <strong>Subscription</strong> field set to its default value.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, select the <strong>Use existing</strong> option.</p>
+
+    <p>a. In the <strong>Resource group</strong> section, locate the list and select the <strong>MOD02APPS</strong> option.</p>
+
+    <p>a. In the <strong>Function App Name</strong> field, enter a globally unique value. This will be used to create the unique URL for this <em>Function App</em>.</p>
+
+    <p>a. In the <strong>Terms and Conditions</strong> section, select the <em>I agree to the terms and conditions stated above</em> checkbox.</p>
+
+    <p>a. Click the <strong>Purchase</strong> button.</p>
+  </li>
+  <li>
+    <p>Wait for the creation task to complete before moving on with this lab.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-view-deployment-metadata">Task 3: View Deployment Metadata</h4>
+
+<ol>
+  <li>
+    <p>On the left side of the portal, click the <strong>Resource groups</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Resource groups</strong> blade, locate and select the <strong>MOD02APPS</strong> <em>Resource Group</em> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>MOD02APPS</strong> blade, locate the <strong>Settings</strong> section on the left side of the blade and click the <strong>Deployments</strong> link.</p>
+  </li>
+  <li>
+    <p>In the <strong>Deployments</strong> pane, select the latest deployment to view its metadata in a new blade.</p>
+  </li>
+  <li>
+    <p>Within the deployment blade, observe the information displayed in the <strong>Inputs</strong> and <strong>Outputs</strong> sections.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you deployed a more sophisticated template that created multiple resources using a combination of parameters, variables and output values.</p>
+</blockquote>
+
+<h2 id="exercise-4-cleanup-subscription">Exercise 4: Cleanup Subscription</h2>
+
+<h4 id="task-1-open-cloud-shell">Task 1: Open Cloud Shell</h4>
+
+<ol>
+  <li>
+    <p>At the top of the portal, click the <strong>Cloud Shell</strong> icon to open a new shell instance.</p>
+  </li>
+  <li>
+    <p>In the <strong>Cloud Shell</strong> command prompt at the bottom of the portal, type in the following command and press <strong>Enter</strong> to list all resource groups in the subscription:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group list
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to view a list of possible CLI commands to <em>delete a Resource Group</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group delete --help
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="task-2-delete-resource-groups">Task 2: Delete Resource Groups</h4>
+
+<ol>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to delete the <strong>MOD02STOR</strong> <em>Resource Group</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group delete --name MOD02STOR --no-wait --yes
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Type in the following command and press <strong>Enter</strong> to delete the <strong>MOD02APPS</strong> <em>Resource Group</em>:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> az group delete --name MOD02APPS --no-wait --yes
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Close the <strong>Cloud Shell</strong> prompt at the bottom of the portal.</p>
+  </li>
+</ol>
+
+<h4 id="task-3-close-active-applications">Task 3: Close Active Applications</h4>
+
+<ol>
+  <li>
+    <p>Close the currently running <strong>Microsoft Edge</strong> application.</p>
+  </li>
+  <li>
+    <p>Close the currently running <strong>Visual Studio Code</strong> application.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p><strong>Review</strong>: In this exercise, you “cleaned up your subscription” by removing the <strong>Resource Groups</strong> used in this lab.</p>
+</blockquote>
+
+            </article>
+        </main>
+    </div>
+    <footer class="fixed-bottom">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-around">
+            <span class="navbar-text">
+                <i class="fa fa-github" aria-hidden="true"></i>
+                <a href="https://github.com/MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions" target="_blank" class="ml-2">
+                    MicrosoftLearning/20535-ArchitectingMicrosoftAzureSolutions
+                </a>
+            </span>
+        </nav>
+    </footer>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 2_ Deploying Resources with Azure Resource Manager_files/jquery-3.2.1.slim.min.js.download" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 2_ Deploying Resources with Azure Resource Manager_files/popper.min.js.download" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="./20535_ Architecting Microsoft Azure Solutions - Module 2_ Deploying Resources with Azure Resource Manager_files/bootstrap.min.js.download" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('article > h2').each(function() {
+                $('nav.toc > ul').append(
+                    $('<li>')
+                        .attr('class', 'nav-item')
+                        .append(
+                            $('<a>')
+                                .attr('class', 'nav-link')
+                                .text($(this).text())
+                                .attr('href', '#' + $(this).attr('id'))
+                        ) 
+                );
+            });
+            $('[data-spy="scroll"]').each(function () {
+                var $spy = $(this).scrollspy('refresh')
+            });
+        });
+    </script>
+
+
+
+<object id="__symantecPKIClientMessenger" data-supports-flavor-configuration="true" data-extension-version="0.5.0.109" style="display: none;"></object><span id="__symantecPKIClientDetector" style="display: none;">__PRESENT</span></body></html>
